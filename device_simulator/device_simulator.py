@@ -21,6 +21,9 @@ temperature_C = 10.0
 humidity_percent = 50
 message_body = '{{"temperature": {temperature},"humidity": {humidity}}}'
 
+# Interval is used to set reporting frequency.
+interval = 1
+
 # Routine creates the IoT Hub client.
 def iothub_client_init():
     client = IoTHubDeviceClient.create_from_connection_string(connection_string)
