@@ -7,9 +7,10 @@ Generates and sends signals to Azure IoT backend.
 '''
 
 # Module Importations
-import random
-import time
 from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
+import random
+import threading
+import time
 
 # The device connection string to authenticate the device with your IoT hub.
 # Using the Azure CLI:
@@ -71,6 +72,11 @@ def iothub_client_telemetry_sample_run():
         client = iothub_client_init()
         print ( "IoT Hub device sending periodic messages, press Ctrl-C to exit" )
 
+        # Start a thread to listen for hub messages.
+        device_method_thread = threading.Thread(target = listen_for_hub_response, args = (client,))
+        device_method_thread.daemon = True
+        device_method_thread.start()
+
         while True:
             # Build the message with simulated telemetry values.
             temperature = temperature_C + (random.random() * 10)
@@ -89,7 +95,7 @@ def iothub_client_telemetry_sample_run():
             print( "Sending message: {}".format(message) )
             client.send_message(message)
             print ( "Message successfully sent" )
-            time.sleep(1)
+            time.sleep(interval)
 
     except KeyboardInterrupt:
         print ( "IoTHubClient sample stopped" )
