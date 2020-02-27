@@ -9,7 +9,7 @@ Generates and sends signals to Azure IoT backend.
 # Module Importations
 import random
 import time
-from azure.iot.device import IoTHubDeviceClient, Message
+from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
 
 # The device connection string to authenticate the device with your IoT hub.
 # Using the Azure CLI:
@@ -24,12 +24,18 @@ message_body = '{{"temperature": {temperature},"humidity": {humidity}}}'
 # Interval is used to set reporting frequency.
 interval = 1
 
-# Routine creates the IoT Hub client.
+# Method creates the IoT Hub client.
 def iothub_client_init():
     client = IoTHubDeviceClient.create_from_connection_string(connection_string)
     return client
 
-# Routine creates and runs client.
+
+# Method sets up a listening function for hub responses.
+def listen_for_hub_response(device_client):
+    pass
+
+
+# Method creates and runs client.
 def iothub_client_telemetry_sample_run():
 
     # Try-catch in use as web service may fail.
