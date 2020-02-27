@@ -32,7 +32,34 @@ def iothub_client_init():
 
 # Method sets up a listening function for hub responses.
 def listen_for_hub_response(device_client):
-    pass
+    
+    global interval
+
+    while True:
+
+        # Set the device to receive messages from the hub.
+        method_request = device_client.receive_method_request()
+        print("\nMethod callback called with:\nmethodName = {method_name}\npayload = {payload}".format(
+            method_name = method_request.name,
+            payload = method_request.payload))
+
+        # Manage the response contained in the message body.
+        if method_request.name == "SetTelemetryInterval":
+            try:
+                interval = int(method_request.payload)
+            except ValueError:
+                response_payload = {"Response:": "Invalid parameter"}
+                response_status = 400
+            else:
+                response_payload = {"Response:": "Executed direct method {}".format(method_request.name)}
+                response_status = 200
+        else:
+            response_payload = {"Response:": "Direct method {} not defined}".format(method_request.name)}
+            response_status = 404
+
+        # Return a message to the hub.
+        method_response = MethodResponse(method_request.request_id, response_status, payload = responseresponse_payload)
+        device_client.send_method_response(method_response)
 
 
 # Method creates and runs client.
