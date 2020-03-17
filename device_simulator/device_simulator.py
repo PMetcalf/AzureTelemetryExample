@@ -57,7 +57,7 @@ def listen_for_hub_response(device_client):
             response_status = 404
 
         # Return a message to the hub.
-        method_response = MethodResponse(method_request.request_id, response_status, payload = responseresponse_payload)
+        method_response = MethodResponse(method_request.request_id, response_status, payload = response_payload)
         device_client.send_method_response(method_response)
 
 

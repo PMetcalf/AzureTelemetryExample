@@ -55,3 +55,7 @@ def iot_device_updatetelemetry_interval():
         print("Device Instruction stopped")
 
 # Main method calls routine to update telemetry interval
+if __name__ == '__main__':
+    print("Starting device update ...")
+
+    iot_device_updatetelemetry_interval()
