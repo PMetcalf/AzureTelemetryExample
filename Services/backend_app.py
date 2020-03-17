@@ -13,8 +13,8 @@ from builtins import input
 import sys
 
 # Service connection string used to authenticate with the device hub.
-CONNECTION_STRING = ""
-DEVICE_ID = ""
+CONNECTION_STRING = "HostName=AzureTelemetryExampleHub.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=glElhyl7qcPnjnBZYUTQob98kdzZRa97svoJO3c/0RQ="
+DEVICE_ID = "simulatedDevice"
 
 # Details of Direct Method to call.
 METHOD_NAME = "SetTelemetryInterval"
